@@ -17,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -89,9 +89,9 @@ class AuthController extends Controller
         $validador = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
-        if($validador->fals()){
+        if($validador->fails()){
             return response()->json($validador->errors()->toJson(),400);
         }
 
@@ -101,7 +101,7 @@ class AuthController extends Controller
         ));
 
         return response()->json([
-            'mensage' => 'Usuario Registrado!',
+            'menssage' => 'Usuario Registrado Exitosamente!',
             'user' => $user
         ], 201);
     }
